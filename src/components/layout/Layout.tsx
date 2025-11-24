@@ -1,6 +1,5 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import SmoothScroll from './SmoothScroll';
-import { motion } from 'framer-motion';
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -17,4 +16,3 @@ export default function Layout({ children }: { children: ReactNode }) {
     </SmoothScroll>
   );
 }
-

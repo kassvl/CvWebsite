@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+// @ts-ignore
 import Lenis from 'lenis';
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
@@ -7,7 +8,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   useEffect(() => {
     lenisRef.current = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureDirection: 'vertical',
       smoothWheel: true,
@@ -27,4 +28,3 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
   return <>{children}</>;
 }
-

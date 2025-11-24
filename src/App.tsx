@@ -1,4 +1,4 @@
-import { Layout } from './components/layout/Layout'
+import Layout from './components/layout/Layout'
 import { HomeSection, WhoAmISection } from './components/sections/HomeSection'
 import { ProjectsSection } from './components/sections/CaseStudiesSection'
 import { CoWorkSection } from './components/sections/CoWorkSection'
