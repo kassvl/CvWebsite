@@ -16,6 +16,7 @@ import {
   IconAward,
   IconCertificate,
   IconArrowRight,
+  IconCode,
 } from '@tabler/icons-react'
 import type { ComponentProps, ComponentType } from 'react'
 
@@ -37,6 +38,7 @@ type IconName =
   | 'award'
   | 'certificate'
   | 'arrow-right'
+  | 'code'
 
 const iconMap: Record<IconName, ComponentType<ComponentProps<typeof IconSun>>> = {
   linkedin: IconBrandLinkedin,
@@ -56,6 +58,7 @@ const iconMap: Record<IconName, ComponentType<ComponentProps<typeof IconSun>>> =
   award: IconAward,
   certificate: IconCertificate,
   'arrow-right': IconArrowRight,
+  code: IconCode,
 }
 
 type IconProps = {
@@ -73,5 +76,3 @@ export const Icon = ({ name, size = 20, className, stroke = 1.5 }: IconProps) =>
 
   return <Component size={size} stroke={stroke} className={className} />
 }
-
-
