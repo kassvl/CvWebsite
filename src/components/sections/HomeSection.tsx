@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const SLIDING_IMAGES = [
@@ -67,7 +67,8 @@ export const HomeSection = () => {
           transition={{ duration: 1.5, delay: 0.8 }}
           className="mt-8 text-lg md:text-xl text-neutral-400 max-w-lg font-light"
         >
-          Full Stack Software Leader specializing in <span className="text-yellow-100/80">scalable microservices</span> and <span className="text-yellow-100/80">data-driven products</span>.
+          Senior Software Architect & <span className="text-yellow-100/80">Cloud Engineering Lead</span>.
+          <br/>Building million-scale systems with precision.
         </motion.p>
 
         <motion.div
@@ -122,17 +123,4 @@ const MarqueeBackground = () => {
   )
 }
 
-export const WhoAmISection = () => {
-    // Simplified placeholder for now, to be updated next
-    return (
-        <section className="min-h-screen bg-neutral-950 flex items-center justify-center py-20 relative z-10">
-            <div className="container mx-auto px-4">
-                <h2 className="text-4xl md:text-6xl font-bold text-white mb-10 luxury-gradient-text">Philosophy</h2>
-                <p className="text-xl text-neutral-400 max-w-2xl leading-relaxed">
-                    I believe in code that breathes. Architecture that scales not just in performance, but in value. 
-                    My work is the intersection of mathematical precision and artistic fluidity.
-                </p>
-            </div>
-        </section>
-    )
-}
+// WhoAmISection has been removed in favor of the new dedicated AboutSection
