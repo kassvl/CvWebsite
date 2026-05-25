@@ -1,4 +1,8 @@
-# Logs
+# === BUILD / NODE / LOGS ===
+node_modules
+dist
+dist-ssr
+*.local
 logs
 *.log
 npm-debug.log*
@@ -7,18 +11,148 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# === EDITOR / OS ===
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# === SECRETS / CREDENTIALS (NEVER COMMIT) ===
+.ssh/
+.aws/
+.azure/
+.gcp/
+.kube/
+.docker/
+.gnupg/
+.config/
+.gem/
+.npmrc
+.git-credentials
+.gitconfig
+*.pem
+*.key
+*.crt
+*.cert
+*.pfx
+*.p12
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+*_rsa
+*_dsa
+*.env
+*.env.*
+!*.env.example
+.envrc
+secrets/
+secrets.*
+credentials/
+credentials.*
+**/.env.vercel
+**/.env.local
+**/.env.production
+**/.env.development
+
+# === SHELL HISTORY ===
+.bash_history
+.zsh_history
+.zsh_sessions/
+.viminfo
+.lesshst
+.bash_profile
+.bashrc
+.zshrc
+.zprofile
+.zprofile.macports-saved_*
+.tcshrc
+.xonshrc
+.profile
+.CFUserTextEncoding
+
+# === TOOL CACHES / AGENT DIRS ===
+.cache/
+.npm/
+.cocoapods/
+.expo/
+.flutter
+.dart-tool/
+.dartServer/
+.pub-cache/
+.terraform.d/
+.codeium/
+.codex/
+.cursor/
+.windsurf/
+.continuum/
+.kiro/
+.kiro-career-ops-memo.md
+.qwen/
+.gemini/
+.claude/
+.claude.json
+.claude.json.backup
+.antigravity/
+.anaconda/
+.condarc
+.spyder-py3/
+.matplotlib/
+.idlerc/
+.ipython/
+.keras/
+.semantic_search/
+.john/
+.bitmonero/
+.shared-ringdb/
+.swiftpm/
+.bundle/
+.great_expectations/
+.omnissa/
+.sambox.cache
+.sejda
+.wdm/
+
+# === HOME DIRS (NEVER COMMIT FROM ~) ===
+/Applications/
+/Desktop/
+/Documents/
+/Downloads/
+/Library/
+/Movies/
+/Music/
+/Pictures/
+/Public/
+/Monero/
+
+# === MISC USER FILES ===
+*.pkt
+*.txt
+job_tracker.md
+hello.txt
+headers.txt
+adsız*/
+asdasda*/
+*adsız klasör*/
+rrrrrrrrr/
+asdasdasd/
+w2f5g3/
+wrx87376/
+3d lab/
+Maçko/
+Githubbbbb/
+Clouddd/
+cloudsss/
+payeye-infra/
+snowboard*/
+Ekran Resmi *
+print*
+
+# === LOCAL DEV (kept inside project) ===
+*.tsbuildinfo
+.vercel/
