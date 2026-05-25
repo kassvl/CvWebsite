@@ -40,6 +40,23 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.6, ease: easeOut, delay: index * 0.05 }}
       className="card group flex flex-col p-6"
     >
+      {project.screenshot && (
+        <a
+          href={project.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="-mx-6 -mt-6 mb-5 block aspect-[16/9] overflow-hidden rounded-t-2xl border-b border-[rgb(var(--rgb-border))] bg-[rgb(var(--rgb-bg)/0.5)]"
+          aria-label={`${project.title} screenshot — opens repo`}
+        >
+          <img
+            src={project.screenshot}
+            alt={`${project.title} — live screenshot`}
+            loading="lazy"
+            className="h-full w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-[1.02]"
+          />
+        </a>
+      )}
+
       <header className="flex items-start justify-between gap-4">
         <div>
           <p className="kbd text-[rgb(var(--rgb-brand-primary))]">{project.category}</p>

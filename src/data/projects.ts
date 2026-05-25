@@ -11,6 +11,7 @@ export interface Project {
   stars: number
   repo: string
   demo?: string
+  screenshot?: string
   featured?: boolean
 }
 
@@ -32,6 +33,8 @@ export const projects: Project[] = [
     language: 'HCL',
     stars: 2,
     repo: 'https://github.com/kassvl/biometric-payment-infrastructure',
+    screenshot:
+      'https://raw.githubusercontent.com/kassvl/biometric-payment-infrastructure/main/docs/screenshots/grafana-cluster-dashboard.png',
     featured: true,
   },
   {
@@ -50,6 +53,8 @@ export const projects: Project[] = [
     language: 'YAML / Bash',
     stars: 1,
     repo: 'https://github.com/kassvl/multi-cluster-istio-mesh',
+    screenshot:
+      'https://raw.githubusercontent.com/kassvl/multi-cluster-istio-mesh/main/docs/screenshots/kiali-graph.png',
     featured: true,
   },
   {
