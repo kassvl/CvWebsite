@@ -17,6 +17,62 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: 'meshmedic',
+    title: 'MeshMedic',
+    category: 'Service Mesh',
+    summary:
+      'Deterministic first responder for Istio incidents — watches the mesh’s Prometheus telemetry, matches a reviewed failure catalog, and answers with an evidence-backed GitOps pull request. Zero LLM, zero cluster mutation.',
+    highlights: [
+      '19-scenario failure catalog — every entry live-verified on a kind + Istio Ambient testbed',
+      'Detects ambient L4 mTLS denials from ztunnel telemetry — failures that never reach request metrics',
+      'Fix lands as a PR with labeled PromQL evidence, config reads and a rollback plan; Argo CD syncs the merge',
+      'Learned per-service baselines (EWMA) + anomaly recorder for failures outside the catalog',
+      'Closes the loop: resolution report + MTTR once the incident recovers',
+    ],
+    stack: ['Go', 'Prometheus / PromQL', 'Istio Ambient', 'Argo CD', 'GitOps', 'kind'],
+    language: 'Go',
+    stars: 1,
+    repo: 'https://github.com/kassvl/meshmedic',
+    screenshot:
+      'https://raw.githubusercontent.com/kassvl/meshmedic/main/demo/video/meshmedic-demo.gif',
+    featured: true,
+  },
+  {
+    slug: 'mesh-incidents-bench',
+    title: 'mesh-incidents-bench',
+    category: 'Service Mesh',
+    summary:
+      'Reproducible service-mesh failure scenarios with documented ground truth — a benchmark for how diagnostic and remediation tools handle mesh-layer incidents, run against a live kind + Istio Ambient testbed.',
+    highlights: [
+      '11 scenarios — each a real injected fault with inject / check / reset scripts and a scoring rubric',
+      'Scores false-positive discipline (noise-only) and absence-of-telemetry outages, not just loud failures',
+      'Measures investigation footprint: wall time and cluster objects a tool creates while diagnosing',
+      'Honest by design: misses are published, author bias is disclosed, istioctl analyze comparison included',
+    ],
+    stack: ['Bash', 'kind', 'Istio Ambient', 'Prometheus', 'Gateway API'],
+    language: 'Shell',
+    stars: 1,
+    repo: 'https://github.com/kassvl/mesh-incidents-bench',
+    featured: true,
+  },
+  {
+    slug: 'istio-ambient-aiops-thesis',
+    title: 'Istio Ambient vs Sidecar — AIOps Thesis',
+    category: 'Service Mesh',
+    summary:
+      'Engineering thesis measuring whether Istio Ambient’s sidecar-less architecture plus an AIOps closed-loop controller beats the Envoy-sidecar pattern on resource cost and reliability under identical load.',
+    highlights: [
+      'Quantifies the "sidecar tax": memory, CPU and P99 latency overhead per pod under identical load profiles',
+      'Autonomous AIOps feedback loop targeting sub-30s self-healing MTTR',
+      'Ambient (ztunnel + waypoint) vs sidecar compared on the same workloads and SLOs',
+    ],
+    stack: ['Istio Ambient', 'Kubernetes 1.30', 'Python 3.11', 'Flask', 'Prometheus'],
+    language: 'Python',
+    stars: 0,
+    repo: 'https://github.com/kassvl/istio-ambient-aiops-thesis',
+    featured: true,
+  },
+  {
     slug: 'biometric-payment-infrastructure',
     title: 'Secure Biometric Payment Infrastructure',
     category: 'Cloud / Infra',
