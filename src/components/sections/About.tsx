@@ -32,7 +32,7 @@ export function About() {
         />
         <Card
           title="What I'm looking for"
-          body="A Cloud / DevOps internship or working-student role in Wrocław or remote across the EU — somewhere I can ship platform improvements and grow next to senior SREs."
+          body="A junior Cloud / DevOps role in Wrocław or remote across the EU — full-time, working-student or internship — somewhere I can ship platform improvements and grow next to senior SREs."
         />
         <Card
           title="Outside the terminal"

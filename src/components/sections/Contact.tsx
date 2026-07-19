@@ -54,7 +54,7 @@ export function Contact() {
           <span className="text-[rgb(var(--rgb-brand-primary))]">together</span>.
         </>
       }
-      description="Cloud / DevOps internships, working-student opportunities, OSS collaboration — drop a message or grab a channel below."
+      description="Junior Cloud / DevOps roles, working-student opportunities, OSS collaboration — drop a message or grab a channel below."
     >
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-3">
