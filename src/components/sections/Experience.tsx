@@ -9,10 +9,10 @@ export function Experience() {
       eyebrow="experience &amp; education"
       title={
         <>
-          The path to <span className="text-[rgb(var(--rgb-brand-accent))]">Cloud&nbsp;Engineer</span>.
+          The path <span className="text-[rgb(var(--rgb-brand-accent))]">so&nbsp;far</span>.
         </>
       }
-      description="Hands-on training programs and academic work shaping my Cloud / DevOps trajectory."
+      description="Client work, industry training and study."
     >
       <div className="grid gap-12 lg:grid-cols-2">
         <Timeline label="Experience">
@@ -27,7 +27,7 @@ export function Experience() {
                 </div>
                 <div className="text-right text-xs text-[rgb(var(--rgb-ink-400))]">
                   <p className="font-mono">
-                    {item.start} — {item.end}
+                    {item.start} - {item.end}
                   </p>
                   <p className="mt-0.5">{item.location}</p>
                 </div>
@@ -69,7 +69,7 @@ export function Experience() {
                 </div>
                 <div className="text-right text-xs text-[rgb(var(--rgb-ink-400))]">
                   <p className="font-mono">
-                    {edu.start} — {edu.end}
+                    {edu.start} - {edu.end}
                   </p>
                   <p className="mt-0.5">{edu.location}</p>
                 </div>

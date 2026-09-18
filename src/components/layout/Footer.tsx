@@ -7,7 +7,7 @@ export function Footer() {
       <Container>
         <div className="flex flex-col items-start justify-between gap-4 text-sm text-[rgb(var(--rgb-ink-400))] md:flex-row md:items-center">
           <p className="font-mono text-xs">
-            <span className="text-[rgb(var(--rgb-ink-600))]">$</span> echo "{profile.monogram}.dev — built with React, Tailwind v4, Framer Motion."
+            <span className="text-[rgb(var(--rgb-ink-600))]">$</span> echo "{profile.monogram}.dev, built with React, Tailwind v4 and Framer Motion."
           </p>
           <p className="font-mono text-xs">
             © {new Date().getFullYear()} {profile.name} ·{' '}

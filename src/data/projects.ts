@@ -1,4 +1,4 @@
-export type ProjectCategory = 'Cloud / Infra' | 'Service Mesh' | 'DevOps Tools' | 'Platform' | 'Web'
+export type ProjectCategory = 'Client work' | 'Team product' | 'Open source' | 'Cloud / Infra'
 
 export interface Project {
   slug: string
@@ -8,168 +8,155 @@ export interface Project {
   highlights: string[]
   stack: string[]
   language: string
-  stars: number
-  repo: string
+  /** Public repo URL. Omit for private code and set `privateNote` instead. */
+  repo?: string
+  /** GitHub stars, shown only for public repos. */
+  stars?: number
+  /** Live site. */
   demo?: string
+  /** Shown instead of the Code button when the repo is private, e.g. "private repo, team of 4". */
+  privateNote?: string
   screenshot?: string
   featured?: boolean
 }
 
+// Order matters: client work first, then team products, then open source and infra.
+// Every claim here must match ~/cv/cv-data.yml (the CV's single source of truth).
 export const projects: Project[] = [
+  {
+    slug: 'kulama-booking',
+    title: 'Kulama Booking',
+    category: 'Client work',
+    summary:
+      'Website and booking system for a braiding studio in Wrocław. Guests request a slot and follow it on a private status page; the studio answers from its own admin desk.',
+    highlights: [
+      'The studio confirms, declines or offers a different time, and the guest accepts the new slot from their page',
+      'Start times follow opening hours and service length; single slots can be closed or opened from the admin',
+      'Next.js 16 route handlers, Postgres and signed-cookie admin auth, with its own mobile layout',
+    ],
+    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Postgres', 'Tailwind v4', 'Framer Motion', 'Vercel'],
+    language: 'TypeScript',
+    repo: 'https://github.com/kassvl/KulamaHairCare',
+    stars: 1,
+    demo: 'https://braidss.xyz',
+    screenshot: '/projects/kulama-booking.jpg',
+    featured: true,
+  },
+  {
+    slug: 'loomr',
+    title: 'LOOMR',
+    category: 'Client work',
+    summary:
+      'Website for a fashion and textile design studio. A film intro hands off to a showroom you walk through, where garments open a made-to-order configurator.',
+    highlights: [
+      'Scroll-scrubbed canvas film intro tuned to hold 60 fps',
+      'Showroom views with clickable hotspots that open the garment configurator',
+      'Configurator recolours real product photos part by part with masks and procedural fabric textures, with live pricing',
+    ],
+    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Canvas', 'Tailwind v4', 'Vercel'],
+    language: 'TypeScript',
+    demo: 'https://loomr.net',
+    privateNote: 'private repo, built with 1 collaborator',
+    screenshot: '/projects/loomr.jpg',
+    featured: true,
+  },
+  {
+    slug: 'emlakplus',
+    title: 'EmlakPlus',
+    category: 'Team product',
+    summary:
+      'CRM and marketing platform for real-estate agencies: listings, clients, map search and scheduled social posts. Largest contributor in a team of four.',
+    highlights: [
+      'FastAPI backend with a Next.js and React front end on PostgreSQL, including distance and polygon map search',
+      'Scheduled social publishing on Redis and Celery workers; LLM captions with a template fallback',
+      'AWS in Terraform; CI gates merges on Checkov, a frontend build and pytest against live PostgreSQL',
+    ],
+    stack: ['Python', 'FastAPI', 'Next.js', 'PostgreSQL', 'Redis', 'Celery', 'Terraform', 'AWS'],
+    language: 'Python / TS',
+    privateNote: 'private repo, team of 4',
+    featured: true,
+  },
+  {
+    slug: 'data-stock',
+    title: 'data-stock',
+    category: 'Team product',
+    summary:
+      'Inventory SaaS for an import business. Stock is logged by scanning barcodes and listings are synced to online marketplaces.',
+    highlights: [
+      'REST API in FastAPI with Alembic migrations, JWT auth and an append-only stock ledger',
+      'React and Vite admin panel plus an Expo scanning client, all on one API contract',
+      'Amazon, Allegro and eBay integrations; CI runs pytest, Vitest and Playwright on every pull request',
+    ],
+    stack: ['Python', 'FastAPI', 'React', 'Vite', 'Expo', 'PostgreSQL', 'Playwright'],
+    language: 'Python / TS',
+    privateNote: 'private repo, team of 4',
+    featured: true,
+  },
+  {
+    slug: 'vantage',
+    title: 'Vantage',
+    category: 'Team product',
+    summary: 'Instagram analytics app: a React Native client backed by a TypeScript API that I built.',
+    highlights: [
+      'Instagram Graph API login for paid users; ad-supported free tier built on verified AdMob reward tokens',
+      'Multi-stage Docker build on Fly.io; CI tests every pull request and deploys on merge to main',
+    ],
+    stack: ['TypeScript', 'Node.js', 'React Native', 'Expo', 'Docker', 'Fly.io'],
+    language: 'TypeScript',
+    privateNote: 'private repo, team of 3',
+    featured: true,
+  },
   {
     slug: 'meshmedic',
     title: 'MeshMedic',
-    category: 'Service Mesh',
+    category: 'Open source',
     summary:
-      'Deterministic first responder for Istio incidents — watches the mesh’s Prometheus telemetry, matches a reviewed failure catalog, and answers with an evidence-backed GitOps pull request. Zero LLM, zero cluster mutation.',
+      'Incident responder for the Istio service mesh, written in Go. It watches Prometheus telemetry, matches a reviewed failure catalog and answers with a pull request that carries the evidence and a rollback plan.',
     highlights: [
-      '19-scenario failure catalog — every entry live-verified on a kind + Istio Ambient testbed',
-      'Detects ambient L4 mTLS denials from ztunnel telemetry — failures that never reach request metrics',
-      'Fix lands as a PR with labeled PromQL evidence, config reads and a rollback plan; Argo CD syncs the merge',
-      'Learned per-service baselines (EWMA) + anomaly recorder for failures outside the catalog',
-      'Closes the loop: resolution report + MTTR once the incident recovers',
+      '16 of 18 detections proven by injecting the real fault on a live cluster',
+      'Read-only on the cluster: every fix arrives as a pull request that a human reviews',
+      'Scored on mesh-incidents-bench, a public set of reproducible failure scenarios I built for it',
     ],
-    stack: ['Go', 'Prometheus / PromQL', 'Istio Ambient', 'Argo CD', 'GitOps', 'kind'],
+    stack: ['Go', 'Prometheus', 'Istio Ambient', 'Argo CD', 'kind'],
     language: 'Go',
-    stars: 1,
     repo: 'https://github.com/kassvl/meshmedic',
-    screenshot:
-      'https://raw.githubusercontent.com/kassvl/meshmedic/main/demo/video/meshmedic-demo.gif',
-    featured: true,
-  },
-  {
-    slug: 'mesh-incidents-bench',
-    title: 'mesh-incidents-bench',
-    category: 'Service Mesh',
-    summary:
-      'Reproducible service-mesh failure scenarios with documented ground truth — a benchmark for how diagnostic and remediation tools handle mesh-layer incidents, run against a live kind + Istio Ambient testbed.',
-    highlights: [
-      '11 scenarios — each a real injected fault with inject / check / reset scripts and a scoring rubric',
-      'Scores false-positive discipline (noise-only) and absence-of-telemetry outages, not just loud failures',
-      'Measures investigation footprint: wall time and cluster objects a tool creates while diagnosing',
-      'Honest by design: misses are published, author bias is disclosed, istioctl analyze comparison included',
-    ],
-    stack: ['Bash', 'kind', 'Istio Ambient', 'Prometheus', 'Gateway API'],
-    language: 'Shell',
     stars: 1,
-    repo: 'https://github.com/kassvl/mesh-incidents-bench',
-    featured: true,
-  },
-  {
-    slug: 'istio-ambient-aiops-thesis',
-    title: 'Istio Ambient vs Sidecar — AIOps Thesis',
-    category: 'Service Mesh',
-    summary:
-      'Engineering thesis measuring whether Istio Ambient’s sidecar-less architecture plus an AIOps closed-loop controller beats the Envoy-sidecar pattern on resource cost and reliability under identical load.',
-    highlights: [
-      'Quantifies the "sidecar tax": memory, CPU and P99 latency overhead per pod under identical load profiles',
-      'Autonomous AIOps feedback loop targeting sub-30s self-healing MTTR',
-      'Ambient (ztunnel + waypoint) vs sidecar compared on the same workloads and SLOs',
-    ],
-    stack: ['Istio Ambient', 'Kubernetes 1.30', 'Python 3.11', 'Flask', 'Prometheus'],
-    language: 'Python',
-    stars: 0,
-    repo: 'https://github.com/kassvl/istio-ambient-aiops-thesis',
     featured: true,
   },
   {
     slug: 'biometric-payment-infrastructure',
-    title: 'Secure Biometric Payment Infrastructure',
+    title: 'Biometric Payment Infrastructure',
     category: 'Cloud / Infra',
     summary:
-      'FinTech-grade Terraform IaC modeled after a regulated European payment processor — EKS + Istio Ambient on AWS with PCI-DSS, GDPR and EU DORA mapped controls.',
+      'Two-region AWS reference architecture for a payment platform, written in Terraform, with security scanners gating every change.',
     highlights: [
-      '7 Terraform modules across 2 AWS regions (eu-central-1 + eu-west-1 DR)',
-      'EKS 1.30 + Istio Ambient (ztunnel + waypoint) — sidecar-less mTLS',
-      'IRSA per workload, External Secrets Operator + AWS Secrets Manager',
-      'CI gates every PR through Checkov + tfsec + Trivy — fail blocks merge',
-      'Mapped to PCI-DSS v4.0, GDPR / Schrems II, EU DORA, CIS AWS, NIST 800-53',
+      'VPC, EKS, WAF, IRSA and Istio mTLS policies across two AWS regions',
+      'Checkov, tfsec and Trivy gate every pull request in CI',
+      'Controls mapped to PCI-DSS v4.0 and GDPR',
     ],
-    stack: ['Terraform 1.9', 'AWS EKS', 'Istio Ambient', 'Aurora', 'WAF v2', 'IRSA', 'KMS'],
+    stack: ['Terraform', 'AWS', 'EKS', 'Istio', 'GitHub Actions'],
     language: 'HCL',
-    stars: 2,
     repo: 'https://github.com/kassvl/biometric-payment-infrastructure',
+    stars: 2,
     screenshot:
       'https://raw.githubusercontent.com/kassvl/biometric-payment-infrastructure/main/docs/screenshots/grafana-cluster-dashboard.png',
     featured: true,
   },
   {
-    slug: 'multi-cluster-istio-mesh',
-    title: 'Multi-Cluster Istio Service Mesh',
-    category: 'Service Mesh',
+    slug: 'istio-ambient-aiops-thesis',
+    title: 'Engineering thesis: Istio Ambient vs sidecar',
+    category: 'Cloud / Infra',
     summary:
-      'Two-cluster Kubernetes setup simulating AWS + GCP locally with Kind, enforcing strict mTLS and zero-trust traffic policies cluster-wide.',
+      'Compares the sidecar-less Istio Ambient mesh with the classic sidecar pattern on resource cost and reliability, with a closed-loop controller that heals injected faults.',
     highlights: [
-      'Automatic mTLS verified via `istioctl x authz check`',
-      'AuthorizationPolicy + PeerAuthentication as default-deny',
-      'Kiali + Prometheus + Grafana for golden-signal observability',
-      'East-west gateway for true multi-cluster discovery in roadmap',
+      'Measures the memory, CPU and p99 latency cost of sidecars under identical load',
+      'Ambient and sidecar compared on the same workloads and SLOs',
     ],
-    stack: ['Kubernetes', 'Istio v1.28', 'Kind', 'Helm', 'Prometheus', 'Grafana', 'Kiali'],
-    language: 'YAML / Bash',
-    stars: 1,
-    repo: 'https://github.com/kassvl/multi-cluster-istio-mesh',
-    screenshot:
-      'https://raw.githubusercontent.com/kassvl/multi-cluster-istio-mesh/main/docs/screenshots/kiali-graph.png',
-    featured: true,
-  },
-  {
-    slug: 'githealthcheck-cli',
-    title: 'GitHealthCheck CLI',
-    category: 'DevOps Tools',
-    summary:
-      'Fully offline command-line tool that audits Git repositories for code quality, architectural debt, sustainability and best-practice gaps.',
-    highlights: [
-      '20+ quality metrics computed without AST parsing',
-      'SOLID / architecture pressure scoring',
-      'Single-binary CLI — no GUI, no network calls',
-      'Designed for both OSS maintainers and enterprise repos',
-    ],
-    stack: ['Python', 'Click', 'GitPython', 'Rich', 'pytest'],
+    stack: ['Kubernetes', 'Istio Ambient', 'Python', 'Prometheus', 'Chaos Mesh'],
     language: 'Python',
-    stars: 1,
-    repo: 'https://github.com/kassvl/GitHealthCheck-CLI',
+    repo: 'https://github.com/kassvl/istio-ambient-aiops-thesis',
+    stars: 0,
     featured: true,
-  },
-  {
-    slug: 'renecore-greenfleet',
-    title: 'Renecore GreenFleet',
-    category: 'Platform',
-    summary:
-      'Renewable-energy monitoring & 7-day forecasting platform for distributed sites, with battery-storage simulation and real-time data ingestion.',
-    highlights: [
-      'FastAPI + Next.js 14 stack, ML forecasting (7-day horizon)',
-      'Battery storage simulation for off-grid scheduling',
-      'Real-time telemetry ingestion + chart-grade dashboards',
-      'Containerised, ready for K8s deployment',
-    ],
-    stack: ['Python 3.11', 'FastAPI', 'Next.js 14', 'PostgreSQL', 'Docker'],
-    language: 'Python / TypeScript',
-    stars: 2,
-    repo: 'https://github.com/kassvl/Rxxxxx-GreenFleet',
-    featured: true,
-  },
-  {
-    slug: 'kulama-haircare',
-    title: 'Kulama HairCare',
-    category: 'Web',
-    summary: 'Modern marketing site for a wellness brand, built with TypeScript-first React tooling.',
-    highlights: ['TypeScript-strict React app', 'Marketing pages with editorial layout'],
-    stack: ['React', 'TypeScript', 'Vite'],
-    language: 'TypeScript',
-    stars: 1,
-    repo: 'https://github.com/kassvl/KulamaHairCare',
-  },
-  {
-    slug: 'tsp-project',
-    title: 'TSP Optimisation',
-    category: 'Platform',
-    summary: 'Travelling Salesman Problem experiments — heuristics, metaheuristics and benchmarking harness.',
-    highlights: ['Multiple algorithm baselines', 'Reproducible benchmarking'],
-    stack: ['Python', 'NumPy'],
-    language: 'Python',
-    stars: 1,
-    repo: 'https://github.com/kassvl/TSP-Project',
   },
 ]
 

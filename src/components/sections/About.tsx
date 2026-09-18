@@ -8,15 +8,16 @@ export function About() {
       eyebrow="about"
       title={
         <>
-          Engineer at the{' '}
-          <span className="text-[rgb(var(--rgb-brand-primary))]">cloud-native</span> layer.
+          A developer who ships the{' '}
+          <span className="text-[rgb(var(--rgb-brand-primary))]">whole stack</span>.
         </>
       }
       description={
         <>
-          Third-year IT student at WSB Merito Wrocław, currently a Cloud &amp; DevOps Trainee at
-          EPAM. I work where infrastructure meets traffic — Kubernetes clusters, Istio service
-          meshes, Terraform modules and the observability stacks that keep them honest.
+          Final-year IT student at WSB Merito Wrocław, graduating in February 2027. Since April 2026
+          I have been building websites and web apps for paying clients, from the first call to the
+          domain and TLS. Before that I trained as a Cloud &amp; DevOps engineer at EPAM, so I can
+          also run what I build.
         </>
       }
       containerSize="narrow"
@@ -24,19 +25,19 @@ export function About() {
       <div className="grid gap-6 md:grid-cols-2">
         <Card
           title="What I'm building right now"
-          body="A multi-cluster Istio service mesh demonstrating mTLS-by-default and east–west cross-cluster traffic, plus production-shaped Terraform IaC for an EKS-based payment platform with KMS, IRSA and Istio Ambient."
+          body="A booking system for a braiding studio in Wrocław (live at braidss.xyz), and the API and admin web of a team inventory SaaS that syncs listings to Allegro, Amazon and eBay."
         />
         <Card
           title="How I work"
-          body="Infra as code, GitOps over click-ops, golden signals over vibes. I document everything, ship small, and keep policies explicit (mTLS, NetworkPolicy, OPA where it earns its place)."
+          body="Small pull requests, tests in CI before merge, and a README that lets someone else run the project. I show clients something they can click early and change it from their feedback."
         />
         <Card
           title="What I'm looking for"
-          body="A junior Cloud / DevOps role in Wrocław or remote across the EU — full-time, working-student or internship — somewhere I can ship platform improvements and grow next to senior SREs."
+          body="A full-stack internship or working-student role in Wrocław or remote in the EU, starting now, where I ship features to real users and learn from a senior team."
         />
         <Card
           title="Outside the terminal"
-          body="Native Turkish, English C1+, learning Polish (A2 → B1). Holder of a Polish Karta Pobytu, full work authorisation."
+          body="Turkish native, English C1+, Polish A2-B1 and improving. Polish Karta Pobytu: full work authorisation in Poland, no sponsorship needed."
         />
       </div>
     </Section>

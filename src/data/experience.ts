@@ -8,7 +8,21 @@ export interface ExperienceItem {
   tags: string[]
 }
 
+// Mirrors ~/cv/cv-data.yml. Change facts there first, then here.
 export const experience: ExperienceItem[] = [
+  {
+    company: 'Freelance',
+    role: 'Web Developer',
+    start: 'Apr 2026',
+    end: 'Present',
+    location: 'Wrocław, Poland',
+    bullets: [
+      'Build websites for small businesses end to end: requirements, design, build, deployment, domain and TLS.',
+      'loomr.net for a textile design studio: Next.js, video-driven room navigation, custom design system.',
+      'braidss.xyz for a hair salon: booking requests with an admin desk, Next.js and Postgres on Vercel.',
+    ],
+    tags: ['Next.js', 'React', 'TypeScript', 'Postgres', 'Vercel'],
+  },
   {
     company: 'EPAM Systems',
     role: 'Cloud & DevOps Trainee',
@@ -16,13 +30,12 @@ export const experience: ExperienceItem[] = [
     end: 'Apr 2026',
     location: 'Wrocław, Poland',
     bullets: [
-      'Selected for the EPAM Cloud & DevOps Lab — competitive technical screening, hands-on tracks across AWS, Kubernetes, Terraform and CI/CD.',
-      'Built 2 reference CI/CD pipelines (GitHub Actions, Jenkins) for Docker workloads: build → test → image push → deploy, removing manual ops steps.',
-      'Provisioned workloads across 2 cloud providers (AWS + Azure) using modular Terraform with state-locked plan/apply gates.',
-      'Operated Kubernetes clusters and Linux hosts; wrote shell automation for routine ops (log rotation, image cleanup, health checks).',
-      'Pair-programmed with senior DevOps engineers on container hardening and observability stacks (Prometheus, Grafana, Loki, CloudWatch).',
+      "Selected through a competitive technical screen for EPAM's Cloud & DevOps program.",
+      'Built CI/CD pipelines in GitHub Actions and Jenkins for Docker apps: build, test, image push, deploy.',
+      'Provisioned AWS and Azure infrastructure with modular Terraform; ran Kubernetes clusters and Linux hosts.',
+      'Set up Prometheus and Grafana monitoring and automated routine operations with Bash.',
     ],
-    tags: ['AWS', 'Kubernetes', 'Terraform', 'GitHub Actions'],
+    tags: ['GitHub Actions', 'Docker', 'Terraform', 'AWS', 'Kubernetes'],
   },
 ]
 
@@ -38,14 +51,13 @@ export interface EducationItem {
 export const education: EducationItem[] = [
   {
     school: 'WSB Merito University',
-    degree: 'B.Eng. — Information Technology',
+    degree: 'B.Eng. Information Technology',
     start: 'Sep 2023',
-    end: 'Jun 2027',
+    end: 'Feb 2027',
     location: 'Wrocław, Poland',
     highlights: [
-      'Final-year focus on cloud-native architecture and service mesh research.',
-      'Engineering thesis: "Istio Ambient Mesh — a sidecar-less service-mesh architecture".',
-      'Active in cloud / DevOps student community; weekly hands-on labs.',
+      'Final year; graduating February 2027.',
+      'Engineering thesis: Istio Ambient vs the sidecar pattern, with a self-healing controller.',
     ],
   },
 ]

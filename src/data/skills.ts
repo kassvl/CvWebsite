@@ -4,50 +4,46 @@ export interface SkillGroup {
   items: string[]
 }
 
+// Only tools used in a real project or job. Mirrors the skills lines in ~/cv/cv-data.yml.
 export const skillGroups: SkillGroup[] = [
   {
-    title: 'Cloud',
-    caption: 'Infra layer — where workloads run.',
-    items: ['AWS', 'OCI', 'GCP (lab)', 'Azure (lab)', 'Cloudflare'],
+    title: 'Frontend',
+    caption: 'What people click.',
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
   },
   {
-    title: 'Containers & Orchestration',
-    caption: 'Day-2 operators of clusters.',
-    items: ['Kubernetes', 'EKS', 'Kind', 'k3s', 'Docker', 'Helm', 'Kustomize'],
+    title: 'Backend & APIs',
+    caption: 'Where the rules live.',
+    items: ['Python', 'FastAPI', 'Node.js', 'NestJS', 'Express', 'REST', 'JWT / OAuth'],
   },
   {
-    title: 'Service Mesh & Networking',
-    caption: 'Zero-trust traffic, mTLS by default.',
-    items: ['Istio', 'Istio Ambient', 'Envoy', 'NGINX', 'Cilium (lab)', 'Linkerd (lab)'],
+    title: 'Data',
+    caption: 'State that has to be right.',
+    items: ['PostgreSQL', 'SQL', 'Redis', 'SQLAlchemy', 'Alembic', 'Celery'],
   },
   {
-    title: 'Infrastructure as Code',
-    caption: 'Reproducible everything.',
-    items: ['Terraform', 'OpenTofu', 'Ansible', 'Helm Charts'],
+    title: 'Testing',
+    caption: 'Proof before merge.',
+    items: ['pytest', 'Vitest', 'Playwright', 'Jest'],
   },
   {
-    title: 'CI / CD & GitOps',
-    caption: 'From commit to production, automated.',
-    items: ['GitHub Actions', 'GitLab CI', 'Argo CD', 'Flux', 'Jenkins (lab)'],
+    title: 'Shipping',
+    caption: 'How code reaches users.',
+    items: ['Docker', 'GitHub Actions', 'Vercel', 'Fly.io', 'Linux', 'Git'],
   },
   {
-    title: 'Observability & SRE',
-    caption: 'Golden signals + incident-grade tooling.',
-    items: ['Prometheus', 'Grafana', 'Loki', 'Tempo', 'OpenTelemetry', 'Kiali'],
+    title: 'Cloud & Infra',
+    caption: 'The layer under the app.',
+    items: ['AWS', 'Terraform', 'Kubernetes', 'Helm', 'Prometheus', 'Grafana', 'Istio'],
   },
   {
-    title: 'Security',
-    caption: 'mTLS, IAM, KMS, policy as code.',
-    items: ['mTLS', 'OPA', 'IRSA', 'Trivy', 'Kyverno', 'Falco', 'Checkov', 'tfsec'],
+    title: 'Mobile',
+    caption: 'When the web is not enough.',
+    items: ['React Native', 'Expo', 'Flutter', 'SwiftUI'],
   },
   {
-    title: 'Compliance Awareness',
-    caption: 'Frameworks I design controls against.',
-    items: ['PCI-DSS v4.0', 'GDPR / Schrems II', 'EU DORA', 'CIS AWS Foundations', 'NIST 800-53'],
-  },
-  {
-    title: 'Languages & Scripting',
-    caption: 'Tools I reach for when shell stops scaling.',
-    items: ['Python', 'TypeScript', 'Go (learning)', 'Bash', 'YAML', 'HCL'],
+    title: 'AI in products',
+    caption: 'Models behind a fallback.',
+    items: ['OpenAI', 'Claude', 'Gemini', 'Mistral', 'Structured JSON output'],
   },
 ]

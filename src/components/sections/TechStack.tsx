@@ -9,11 +9,11 @@ export function TechStack() {
       eyebrow="stack"
       title={
         <>
-          Tools that keep clusters{' '}
-          <span className="text-[rgb(var(--rgb-brand-accent))]">healthy</span>.
+          Tools I build and{' '}
+          <span className="text-[rgb(var(--rgb-brand-accent))]">ship</span> with.
         </>
       }
-      description="The eight layers I reach for, from infra plumbing to incident-grade observability."
+      description="From the component someone clicks to the pipeline that deploys it. Everything here is used in a project on this page."
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {skillGroups.map((g) => (

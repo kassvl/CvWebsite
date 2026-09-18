@@ -161,20 +161,19 @@ function SystemStatusCard() {
         <Stat label="region" value={s.region} accent />
         <Stat label="role" value={s.role} />
         <Stat label="status" value={s.status} />
-        <Stat label="open issues" value={String(s.incidents)} ok />
+        <Stat label="live client sites" value={String(s.liveSites)} ok />
       </dl>
 
       <div className="mt-6 rounded-xl border border-[rgb(var(--rgb-border))] bg-[rgb(var(--rgb-bg)/0.6)] p-4 font-mono text-xs leading-relaxed text-[rgb(var(--rgb-ink-200))]">
-        <p>
-          <span className="text-[rgb(var(--rgb-ink-600))]">$</span>{' '}
-          <span className="text-[rgb(var(--rgb-brand-primary))]">cat</span> /etc/portfolio
-        </p>
-        <p className="text-[rgb(var(--rgb-ink-400))]">5 hero projects · HCL · Python · TS</p>
-        <p className="mt-2">
-          <span className="text-[rgb(var(--rgb-ink-600))]">$</span>{' '}
-          <span className="text-[rgb(var(--rgb-brand-primary))]">grep</span> -c compliance README.md
-        </p>
-        <p className="text-[rgb(var(--rgb-ink-400))]">PCI-DSS · GDPR · EU DORA · CIS · NIST</p>
+        {profile.terminal.map((line, i) => (
+          <div key={line.arg} className={i > 0 ? 'mt-2' : undefined}>
+            <p>
+              <span className="text-[rgb(var(--rgb-ink-600))]">$</span>{' '}
+              <span className="text-[rgb(var(--rgb-brand-primary))]">{line.cmd}</span> {line.arg}
+            </p>
+            <p className="text-[rgb(var(--rgb-ink-400))]">{line.out}</p>
+          </div>
+        ))}
       </div>
     </div>
   )

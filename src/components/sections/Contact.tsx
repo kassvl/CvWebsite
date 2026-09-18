@@ -18,7 +18,7 @@ import { profile } from '../../data/profile'
 const schema = z.object({
   name: z.string().min(2, 'Please enter your name.'),
   email: z.string().email('Enter a valid email.'),
-  message: z.string().min(10, 'Tell me a bit more — at least 10 characters.'),
+  message: z.string().min(10, 'Tell me a bit more: at least 10 characters.'),
 })
 
 type FormValues = z.infer<typeof schema>
@@ -54,7 +54,7 @@ export function Contact() {
           <span className="text-[rgb(var(--rgb-brand-primary))]">together</span>.
         </>
       }
-      description="Junior Cloud / DevOps roles, working-student opportunities, OSS collaboration — drop a message or grab a channel below."
+      description="Full-stack internships, working-student roles and freelance projects. Drop a message or grab a channel below."
     >
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-3">
@@ -139,7 +139,7 @@ export function Contact() {
               </>
             ) : status === 'success' ? (
               <>
-                <IconCheck size={16} /> Sent — check your mail client
+                <IconCheck size={16} /> Sent. Check your mail client
               </>
             ) : (
               <>
@@ -148,7 +148,7 @@ export function Contact() {
             )}
           </button>
           <p className="text-xs text-[rgb(var(--rgb-ink-400))]">
-            This form opens your mail client pre-filled — zero backend, zero tracking.
+            This form opens your mail client pre-filled. No backend, no tracking.
           </p>
         </form>
       </div>

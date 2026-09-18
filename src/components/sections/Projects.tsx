@@ -16,11 +16,11 @@ export function Projects() {
       eyebrow="selected work"
       title={
         <>
-          Projects shipped at the{' '}
-          <span className="text-[rgb(var(--rgb-brand-primary))]">infra</span> layer.
+          Things I built and{' '}
+          <span className="text-[rgb(var(--rgb-brand-primary))]">shipped</span>.
         </>
       }
-      description="Open-source repositories and lab-grade systems — most are reproducible end-to-end with the commands in their READMEs."
+      description="Client work first, then team products, then open source. Private repos are marked; I am happy to walk through the code on a call."
     >
       <ul className="grid gap-5 md:grid-cols-2">
         {projects.map((project, i) => (
@@ -42,15 +42,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       {project.screenshot && (
         <a
-          href={project.repo}
+          href={project.demo ?? project.repo}
           target="_blank"
           rel="noopener noreferrer"
           className="-mx-6 -mt-6 mb-5 block aspect-[16/9] overflow-hidden rounded-t-2xl border-b border-[rgb(var(--rgb-border))] bg-[rgb(var(--rgb-bg)/0.5)]"
-          aria-label={`${project.title} screenshot — opens repo`}
+          aria-label={`${project.title} screenshot, opens ${project.demo ? 'the live site' : 'the repo'}`}
         >
           <img
             src={project.screenshot}
-            alt={`${project.title} — live screenshot`}
+            alt={`${project.title} screenshot`}
             loading="lazy"
             className="h-full w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-[1.02]"
           />
@@ -65,9 +65,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </h3>
         </div>
         <div className="flex items-center gap-3 text-xs text-[rgb(var(--rgb-ink-400))]">
-          <span className="inline-flex items-center gap-1">
-            <IconStar size={14} /> {project.stars}
-          </span>
+          {project.repo && project.stars !== undefined && (
+            <span className="inline-flex items-center gap-1">
+              <IconStar size={14} /> {project.stars}
+            </span>
+          )}
           <span className="font-mono">{project.language}</span>
         </div>
       </header>
@@ -101,24 +103,32 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ))}
       </ul>
 
-      <footer className="mt-6 flex items-center gap-3 pt-4 border-t border-[rgb(var(--rgb-border))]">
-        <a
-          href={project.repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full border border-[rgb(var(--rgb-border))] px-3 py-1.5 text-xs text-[rgb(var(--rgb-ink-200))] transition-colors hover:border-[rgb(var(--rgb-brand-primary)/0.6)] hover:text-[rgb(var(--rgb-ink-50))]"
-        >
-          <IconBrandGithub size={14} /> Code
-        </a>
+      <footer className="mt-6 flex flex-wrap items-center gap-3 pt-4 border-t border-[rgb(var(--rgb-border))]">
         {project.demo && (
           <a
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full bg-[rgb(var(--rgb-brand-primary)/0.12)] px-3 py-1.5 text-xs text-[rgb(var(--rgb-brand-primary))] transition-colors hover:bg-[rgb(var(--rgb-brand-primary)/0.2)]"
+            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-[rgb(var(--rgb-brand-primary)/0.12)] px-3 py-1.5 text-xs text-[rgb(var(--rgb-brand-primary))] transition-colors hover:bg-[rgb(var(--rgb-brand-primary)/0.2)]"
           >
-            <IconArrowUpRight size={14} /> Demo
+            <IconArrowUpRight size={14} /> Live site
           </a>
+        )}
+        {project.repo ? (
+          <a
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[rgb(var(--rgb-border))] px-3 py-1.5 text-xs text-[rgb(var(--rgb-ink-200))] transition-colors hover:border-[rgb(var(--rgb-brand-primary)/0.6)] hover:text-[rgb(var(--rgb-ink-50))]"
+          >
+            <IconBrandGithub size={14} /> Code
+          </a>
+        ) : (
+          project.privateNote && (
+            <span className="font-mono text-[11px] text-[rgb(var(--rgb-ink-400))]">
+              {project.privateNote}
+            </span>
+          )
         )}
       </footer>
     </motion.li>
