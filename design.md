@@ -42,7 +42,7 @@ paper and editorial serif. Rewritten 2026-09-20, replacing the earlier "Cloud Co
 
 ## 4. Signature elements
 
-- **Hero film**: 20 webp frames (1920x1080, ~770 KB total) of braidss.xyz, loomr.net and the
+- **Hero**: typographic, no imagery. The earlier scroll-scrubbed film was removed 2026-09-20.
   MeshMedic demo, scrubbed by scroll across a 320vh sticky section, captioned per chapter.
   Rebuild with `node scripts/capture-hero.mjs` whenever those sites change.
 - **Live embeds**: client projects load inside a browser-chrome frame on click, rendered at
