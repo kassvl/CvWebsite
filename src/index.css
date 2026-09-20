@@ -3,49 +3,52 @@
 @source "./**/*.{ts,tsx}";
 
 /* ──────────────────────────────────────────────────────────────
-   Design tokens — see /design.md  (Cloud Console aesthetic)
+   Design tokens — "Workshop at night"
+   Palette taken from his own client work: LOOMR vermilion (#C7331E) and the
+   Kulama paper/clay warm range, on a warm near-black instead of the old
+   cool-blue template. Editorial serif display (Fraunces) over mono details.
    ────────────────────────────────────────────────────────────── */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Poppins", "Inter", ui-sans-serif, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --color-bg: rgb(7 12 22);
-  --color-surface: rgb(13 20 33);
-  --color-surface-2: rgb(19 28 45);
-  --color-border: rgb(33 47 71);
+  --color-bg: rgb(12 10 9);
+  --color-surface: rgb(23 19 16);
+  --color-surface-2: rgb(32 26 22);
+  --color-border: rgb(58 47 40);
 
-  --color-ink-50: rgb(229 235 245);
-  --color-ink-200: rgb(178 191 213);
-  --color-ink-400: rgb(123 138 165);
-  --color-ink-600: rgb(86 102 132);
+  --color-ink-50: rgb(244 236 226);
+  --color-ink-200: rgb(209 195 180);
+  --color-ink-400: rgb(150 135 121);
+  --color-ink-600: rgb(105 92 81);
 
-  --color-brand-primary: rgb(56 189 248);
-  --color-brand-accent: rgb(16 185 129);
-  --color-brand-warn: rgb(245 158 11);
-  --color-brand-danger: rgb(244 63 94);
+  --color-brand-primary: rgb(199 51 30);
+  --color-brand-accent: rgb(217 164 65);
+  --color-brand-warn: rgb(217 164 65);
+  --color-brand-danger: rgb(199 51 30);
 
   --shadow-glow:
-    0 0 0 1px rgb(56 189 248 / 0.18),
-    0 24px 80px -24px rgb(56 189 248 / 0.35);
+    0 0 0 1px rgb(199 51 30 / 0.22),
+    0 28px 90px -30px rgb(199 51 30 / 0.45);
 
-  --radius-card: 1.25rem;
+  --radius-card: 1rem;
 }
 
 :root {
   color-scheme: dark;
 
   /* RGB triplets used for opacity-aware tokens */
-  --rgb-bg: 7 12 22;
-  --rgb-surface: 13 20 33;
-  --rgb-surface-2: 19 28 45;
-  --rgb-border: 33 47 71;
-  --rgb-ink-50: 229 235 245;
-  --rgb-ink-200: 178 191 213;
-  --rgb-ink-400: 123 138 165;
-  --rgb-ink-600: 86 102 132;
-  --rgb-brand-primary: 56 189 248;
-  --rgb-brand-accent: 16 185 129;
+  --rgb-bg: 12 10 9;
+  --rgb-surface: 23 19 16;
+  --rgb-surface-2: 32 26 22;
+  --rgb-border: 58 47 40;
+  --rgb-ink-50: 244 236 226;
+  --rgb-ink-200: 209 195 180;
+  --rgb-ink-400: 150 135 121;
+  --rgb-ink-600: 105 92 81;
+  --rgb-brand-primary: 199 51 30;
+  --rgb-brand-accent: 217 164 65;
 }
 
 * { border-color: rgb(var(--rgb-border) / 1); }
@@ -70,7 +73,31 @@ body {
   color: rgb(var(--rgb-ink-50));
 }
 
-/* Subtle global grid background — Kubernetes ops vibe */
+/* Film grain: the texture from his LOOMR work, kept faint so text stays crisp. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 7s steps(6) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -2%); }
+  80% { transform: translate(3%, 3%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; }
+}
+
+/* Subtle global grid background */
 .bg-grid {
   background-image:
     linear-gradient(rgb(var(--rgb-border) / 0.45) 1px, transparent 1px),

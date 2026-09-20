@@ -40,7 +40,7 @@ export function Section({
               {eyebrow && <span>{eyebrow}</span>}
             </div>
           )}
-          <h2 className="mt-4 font-[var(--font-display)] text-3xl md:text-5xl font-bold tracking-tight text-[rgb(var(--rgb-ink-50))]">
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold tracking-tight text-[rgb(var(--rgb-ink-50))]">
             {title}
           </h2>
           {description && (

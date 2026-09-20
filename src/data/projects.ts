@@ -14,6 +14,8 @@ export interface Project {
   stars?: number
   /** Live site. */
   demo?: string
+  /** Page to load inside the site when someone clicks "Try it live". */
+  embed?: string
   /** Shown instead of the Code button when the repo is private, e.g. "private repo, team of 4". */
   privateNote?: string
   screenshot?: string
@@ -39,6 +41,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/kassvl/KulamaHairCare',
     stars: 1,
     demo: 'https://braidss.xyz',
+    embed: 'https://braidss.xyz/rezervasyon',
     screenshot: '/projects/kulama-booking.jpg',
     featured: true,
   },
@@ -56,6 +59,7 @@ export const projects: Project[] = [
     stack: ['Next.js 16', 'React 19', 'TypeScript', 'Canvas', 'Tailwind v4', 'Vercel'],
     language: 'TypeScript',
     demo: 'https://loomr.net',
+    embed: 'https://loomr.net',
     privateNote: 'private repo, built with 1 collaborator',
     screenshot: '/projects/loomr.jpg',
     featured: true,
