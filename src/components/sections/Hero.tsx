@@ -6,22 +6,27 @@ import { Container } from '../ui/Container'
 import { easeOut } from '../../lib/motion'
 
 /**
- * Hero film: 20 frames of real, shipped work, scrubbed by scroll.
- * Frames come from scripts/capture-hero.mjs (braidss.xyz, loomr.net, the MeshMedic demo).
+ * Hero film: 12 frames of real, shipped work, scrubbed by scroll.
+ * Frames come from scripts/capture-hero.mjs (loomr.net, the braidss.xyz booking flow, the
+ * MeshMedic demo). No client brand photography: the film opens on work.
  *
- * Phones and reduced-motion visitors get the poster frame instead: the film is 600 KB and a
- * recruiter on a phone should reach the content immediately, which is why the section
- * collapses to one screen there.
+ * Performance notes, after the first version stuttered:
+ * - frames are decoded with createImageBitmap at the size they are drawn at, so the browser
+ *   never holds twelve full-resolution bitmaps (that was ~100 MB of decoded pixels),
+ * - scroll updates write to the canvas and to two nodes directly; React state would re-render
+ *   the whole section on every scroll tick,
+ * - a frame is drawn only when the index or the canvas size actually changes.
+ *
+ * Phones and reduced-motion visitors get the poster frame instead.
  */
-const FRAME_COUNT = 20
+const FRAME_COUNT = 12
 const frameUrl = (i: number) => `/hero/f${String(i + 1).padStart(2, '0')}.webp`
 
 // Which frame starts which chapter of the film, and what to call it.
 const CAPTIONS: { from: number; label: string; note: string }[] = [
-  { from: 0, label: 'Kulama, Wrocław', note: 'client site, live at braidss.xyz' },
-  { from: 5, label: 'Booking flow', note: 'guest picks a slot, the studio answers' },
-  { from: 9, label: 'LOOMR', note: 'client site, live at loomr.net' },
-  { from: 15, label: 'MeshMedic', note: 'incident in, reviewed pull request out' },
+  { from: 0, label: 'LOOMR', note: 'client site, live at loomr.net' },
+  { from: 4, label: 'Kulama booking', note: 'guest picks a slot, the studio answers' },
+  { from: 8, label: 'MeshMedic', note: 'incident in, reviewed pull request out' },
 ]
 
 function useIsCompact() {
@@ -44,85 +49,113 @@ export function Hero() {
 function HeroFilm() {
   const sectionRef = useRef<HTMLElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [frame, setFrame] = useState(0)
-  const [progress, setProgress] = useState(0)
+  const captionRef = useRef<HTMLDivElement>(null)
+  const labelRef = useRef<HTMLParagraphElement>(null)
+  const noteRef = useRef<HTMLParagraphElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const barRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
     const section = sectionRef.current
     if (!canvas || !section) return
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', { alpha: false })
     if (!ctx) return
 
-    const images: HTMLImageElement[] = []
-    let current = -1
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+    const bitmaps: (ImageBitmap | null)[] = new Array(FRAME_COUNT).fill(null)
+    let index = -1
+    let size = ''
     let raf = 0
+    let cancelled = false
 
-    const draw = (index: number) => {
-      const img = images[index]
-      if (!img?.complete || !img.naturalWidth) return
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const paint = (i: number, force = false) => {
+      const bmp = bitmaps[i] ?? bitmaps.slice(0, i + 1).reverse().find(Boolean) ?? bitmaps.find(Boolean)
+      if (!bmp) return
       const w = canvas.clientWidth
       const h = canvas.clientHeight
-      if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-        canvas.width = w * dpr
-        canvas.height = h * dpr
+      const key = `${w}x${h}`
+      if (key !== size) {
+        canvas.width = Math.round(w * dpr)
+        canvas.height = Math.round(h * dpr)
+        size = key
+        force = true
       }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      // cover fit
-      const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight)
-      const dw = img.naturalWidth * scale
-      const dh = img.naturalHeight * scale
-      ctx.clearRect(0, 0, w, h)
-      ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh)
+      if (!force && i === index) return
+      index = i
+      const scale = Math.max(canvas.width / bmp.width, canvas.height / bmp.height)
+      const dw = bmp.width * scale
+      const dh = bmp.height * scale
+      ctx.drawImage(bmp, (canvas.width - dw) / 2, (canvas.height - dh) / 2, dw, dh)
     }
 
-    // First frame first, so something is on screen before the rest arrives.
-    for (let i = 0; i < FRAME_COUNT; i++) {
-      const img = new Image()
-      img.decoding = 'async'
-      img.src = frameUrl(i)
-      img.onload = () => {
-        if (i === current || (current === -1 && i === 0)) draw(i)
+    /** Decode straight to the size we draw at; full-resolution bitmaps are what made it stutter. */
+    const load = async (i: number) => {
+      try {
+        const res = await fetch(frameUrl(i))
+        const blob = await res.blob()
+        const target = Math.min(1600, Math.round(window.innerWidth * dpr))
+        const bmp = await createImageBitmap(blob, {
+          resizeWidth: target,
+          resizeHeight: Math.round((target * 9) / 16),
+          resizeQuality: 'high',
+        })
+        if (cancelled) return bmp.close()
+        bitmaps[i] = bmp
+        if (i === 0) paint(0, true)
+      } catch {
+        /* a missing frame just means the film holds the previous one */
       }
-      images.push(img)
     }
 
+    // Sequential, so the first frames are ready while the visitor is still reading the title.
+    ;(async () => {
+      for (let i = 0; i < FRAME_COUNT && !cancelled; i++) await load(i)
+    })()
+
+    let lastCaption = -1
     const update = () => {
       raf = 0
       const rect = section.getBoundingClientRect()
       const total = rect.height - window.innerHeight
       const p = total > 0 ? Math.min(Math.max(-rect.top / total, 0), 1) : 0
-      const index = Math.min(FRAME_COUNT - 1, Math.round(p * (FRAME_COUNT - 1)))
-      setProgress(p)
-      if (index !== current) {
-        current = index
-        setFrame(index)
-        draw(index)
-      } else {
-        draw(index)
+      paint(Math.min(FRAME_COUNT - 1, Math.round(p * (FRAME_COUNT - 1))))
+
+      if (titleRef.current) titleRef.current.style.opacity = String(Math.max(0, 1 - p * 3.2))
+      if (captionRef.current) captionRef.current.style.opacity = String(Math.min(1, p * 4))
+      if (barRef.current) barRef.current.style.width = `${Math.round(p * 100)}%`
+
+      const c = [...CAPTIONS].reverse().find((x) => index >= x.from) ?? CAPTIONS[0]
+      const ci = CAPTIONS.indexOf(c)
+      if (ci !== lastCaption) {
+        lastCaption = ci
+        if (labelRef.current) labelRef.current.textContent = c.label
+        if (noteRef.current) noteRef.current.textContent = c.note
       }
     }
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update)
     }
+    const onResize = () => {
+      size = ''
+      onScroll()
+    }
 
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', onResize)
     return () => {
+      cancelled = true
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', onResize)
       if (raf) cancelAnimationFrame(raf)
+      bitmaps.forEach((b) => b?.close())
     }
   }, [])
 
-  const caption = [...CAPTIONS].reverse().find((c) => frame >= c.from) ?? CAPTIONS[0]
-  const titleOpacity = Math.max(0, 1 - progress * 3.2)
-
   return (
-    <section id="top" ref={sectionRef} className="relative h-[320vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+    <section id="top" ref={sectionRef} className="relative h-[280vh]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[rgb(var(--rgb-bg))]">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden />
         <div
           aria-hidden
@@ -134,10 +167,7 @@ function HeroFilm() {
         />
 
         {/* Name and line, fading out as the film starts */}
-        <div
-          className="pointer-events-none absolute inset-0 flex items-center"
-          style={{ opacity: titleOpacity }}
-        >
+        <div ref={titleRef} className="pointer-events-none absolute inset-0 flex items-center">
           <Container>
             <p className="kbd inline-flex items-center gap-2.5 rounded-full border border-[rgb(var(--rgb-brand-primary)/0.4)] bg-[rgb(var(--rgb-brand-primary)/0.1)] px-3 py-1.5 text-[rgb(var(--rgb-ink-50))]">
               <span className="live-dot block h-1.5 w-1.5 rounded-full bg-[rgb(var(--rgb-brand-primary))]" />
@@ -156,10 +186,12 @@ function HeroFilm() {
         <div className="absolute inset-x-0 bottom-0 pb-10">
           <Container>
             <div className="flex flex-wrap items-end justify-between gap-6">
-              <div style={{ opacity: Math.min(1, progress * 4) }}>
-                <p className="kbd text-[rgb(var(--rgb-brand-accent))]">{caption.label}</p>
-                <p className="mt-1 font-display text-2xl text-[rgb(var(--rgb-ink-50))] md:text-3xl">
-                  {caption.note}
+              <div ref={captionRef} style={{ opacity: 0 }}>
+                <p ref={labelRef} className="kbd text-[rgb(var(--rgb-brand-accent))]">
+                  {CAPTIONS[0].label}
+                </p>
+                <p ref={noteRef} className="mt-1 font-display text-2xl text-[rgb(var(--rgb-ink-50))] md:text-3xl">
+                  {CAPTIONS[0].note}
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
@@ -187,10 +219,7 @@ function HeroFilm() {
               </div>
             </div>
             <div className="mt-8 h-px w-full bg-[rgb(var(--rgb-border))]">
-              <div
-                className="h-px bg-[rgb(var(--rgb-brand-primary))]"
-                style={{ width: `${Math.round(progress * 100)}%` }}
-              />
+              <div ref={barRef} className="h-px bg-[rgb(var(--rgb-brand-primary))]" style={{ width: '0%' }} />
             </div>
           </Container>
         </div>

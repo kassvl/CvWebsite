@@ -4,9 +4,12 @@
  *
  *   node scripts/capture-hero.mjs
  *
- * Scene 1: braidss.xyz, a client site, from the hero into the booking flow.
- * Scene 2: loomr.net, the showroom of the other client site.
+ * Scene 1: loomr.net, dark and cinematic, as the opening of the film.
+ * Scene 2: braidss.xyz's booking flow, the part he actually built.
  * Scene 3: MeshMedic, from its recorded demo (Grafana incident to merged pull request).
+ *
+ * Deliberately no client brand photography: the film opens on work, not on someone else's
+ * marketing shot.
  *
  * Output: public/hero/f01.webp ... fNN.webp, 1280x720, plus poster.webp for mobile and
  * social previews. Re-run whenever those sites change.
@@ -19,13 +22,12 @@ import { chromium } from 'playwright';
 
 const OUT = 'public/hero';
 const RAW = '/tmp/hero-raw';
-const W = 1920, H = 1080;
+const W = 1600, H = 900;
 const MESHMEDIC_MP4 = join(homedir(), 'meshmedic/demo/video/meshmedic-demo.mp4');
 
 const SCENES = [
-  { url: 'https://braidss.xyz', shots: 5, step: 620, wait: 4500 },
-  { url: 'https://braidss.xyz/rezervasyon', shots: 4, step: 520, wait: 3000 },
-  { url: 'https://loomr.net', shots: 6, step: 700, wait: 6000 },
+  { url: 'https://loomr.net', shots: 6, step: 700, wait: 6500 },
+  { url: 'https://braidss.xyz/rezervasyon', shots: 4, step: 480, wait: 3500 },
 ];
 
 rmSync(RAW, { recursive: true, force: true });
@@ -51,7 +53,7 @@ await browser.close();
 // MeshMedic: pull frames from the recorded demo, cropped to the content strip so the
 // empty lower half of that recording never reaches the film.
 if (existsSync(MESHMEDIC_MP4)) {
-  const stamps = ['00:00:04', '00:00:26', '00:00:34', '00:00:44', '00:01:06'];
+  const stamps = ['00:00:26', '00:00:34', '00:00:44', '00:01:06'];
   for (const ss of stamps) {
     const out = join(RAW, `${String(++n).padStart(3, '0')}.png`);
     execFileSync('ffmpeg', ['-v', 'error', '-y', '-ss', ss, '-i', MESHMEDIC_MP4, '-frames:v', '1',
@@ -66,6 +68,6 @@ if (existsSync(MESHMEDIC_MP4)) {
 execFileSync('bash', ['-c',
   `set -e; i=0; for f in ${RAW}/*.png; do i=$((i+1)); ` +
   `ffmpeg -v error -y -i "$f" -vf "scale=${W}:${H}:force_original_aspect_ratio=increase,crop=${W}:${H}" /tmp/hero-frame.png; ` +
-  `cwebp -quiet -q 68 /tmp/hero-frame.png -o "${OUT}/f$(printf %02d $i).webp"; done`]);
+  `cwebp -quiet -q 64 /tmp/hero-frame.png -o "${OUT}/f$(printf %02d $i).webp"; done`]);
 execFileSync('bash', ['-c', `cp ${OUT}/f01.webp ${OUT}/poster.webp`]);
 console.log(`wrote ${n} frames to ${OUT}`);
