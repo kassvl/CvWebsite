@@ -9,7 +9,6 @@ import {
   IconLoader2,
   IconMail,
   IconMapPin,
-  IconPhone,
   IconSend,
 } from '../ui/Icons'
 import { Section } from '../ui/Section'
@@ -63,12 +62,6 @@ export function Contact() {
             label="email"
             value={profile.email}
             href={`mailto:${profile.email}`}
-          />
-          <ContactRow
-            icon={<IconPhone size={16} />}
-            label="phone"
-            value={profile.phone}
-            href={`tel:${profile.phone.replace(/\s+/g, '')}`}
           />
           <ContactRow
             icon={<IconMapPin size={16} />}

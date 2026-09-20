@@ -9,7 +9,7 @@ export const profile = {
   region: 'EU · UTC+1',
   status: 'Open to work: full-stack internship or working student',
   email: 'kadirhanemre@proton.me',
-  phone: '+48 572 412 433',
+  // Phone stays out of the public site on purpose (scrapers, spam); it is on the CV only.
   github: 'https://github.com/kassvl',
   linkedin: 'https://linkedin.com/in/kadirhan-emre',
   website: 'https://kadirhanemrememis.xyz',
