@@ -142,6 +142,17 @@ body::after {
   background: rgb(var(--rgb-surface-2));
 }
 
+/* EKG monitor sweep: a bright 10%-wide segment runs across the heartbeat trace. pathLength=100
+   on the <path> makes the dash units percentages, so this is independent of the real path length. */
+.ekg-sweep {
+  stroke-dasharray: 10 90;
+  animation: ekg-sweep 2.6s linear infinite;
+}
+@keyframes ekg-sweep {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
 /* Pulsing live dot */
 .live-dot {
   position: relative;
@@ -169,6 +180,8 @@ body::after {
     transition-duration: 0.001ms !important;
   }
   .live-dot::after { animation: none; }
+  /* Drop the sweep entirely so it doesn't freeze mid-dash; the dim full trace stays visible. */
+  .ekg-sweep { display: none; }
   html { scroll-behavior: auto; }
 }
 

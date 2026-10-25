@@ -7,6 +7,7 @@ import {
 } from '../ui/Icons'
 import { profile } from '../../data/profile'
 import { Container } from '../ui/Container'
+import { Heartbeat } from '../effects/Heartbeat'
 import { easeOut } from '../../lib/motion'
 
 /**
@@ -150,8 +151,16 @@ export function Hero() {
             className="lg:col-span-5"
           >
             <div className="card p-6 md:p-7">
-              <p className="kbd text-[rgb(var(--rgb-ink-400))]">live right now</p>
-              <ul className="mt-5 divide-y divide-[rgb(var(--rgb-border))]">
+              <div className="flex items-center justify-between gap-4">
+                <p className="kbd text-[rgb(var(--rgb-ink-400))]">live right now</p>
+                <span className="kbd flex items-center gap-1.5 text-[rgb(var(--rgb-brand-primary))]">
+                  <span className="live-dot block h-1.5 w-1.5 rounded-full bg-[rgb(var(--rgb-brand-primary))]" />
+                  all systems up
+                </span>
+              </div>
+              {/* EKG strip: the card reads like a vitals monitor, a nod to the Git Hospital tools */}
+              <Heartbeat height={44} className="mt-3 w-full opacity-90" />
+              <ul className="mt-4 divide-y divide-[rgb(var(--rgb-border))]">
                 {LIVE.map((item) => (
                   <li key={item.href} className="py-3 first:pt-0 last:pb-0">
                     <a
