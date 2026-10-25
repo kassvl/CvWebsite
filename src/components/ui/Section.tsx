@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { clsx } from 'clsx'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { Container } from './Container'
+import { Heartbeat } from '../effects/Heartbeat'
 import { easeOut } from '../../lib/motion'
 
 interface SectionProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
@@ -12,6 +13,8 @@ interface SectionProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   description?: ReactNode
   children: ReactNode
   containerSize?: 'default' | 'narrow'
+  /** Draw the EKG divider at the top of the section. On by default. */
+  divider?: boolean
 }
 
 export function Section({
@@ -23,10 +26,24 @@ export function Section({
   children,
   className,
   containerSize = 'default',
+  divider = true,
 }: SectionProps) {
   return (
     <section id={id} className={clsx('relative py-24 md:py-32 scroll-mt-24', className)}>
       <Container size={containerSize}>
+        {divider && (
+          /* EKG divider: a faint monitor line between sections, flanked by medical crosses */
+          <div
+            aria-hidden
+            className="mb-16 flex items-center gap-3 text-[rgb(var(--rgb-brand-primary))] md:mb-20"
+          >
+            <span className="font-mono text-sm opacity-60">+</span>
+            <div className="flex-1">
+              <Heartbeat beats={6} height={18} className="opacity-45" />
+            </div>
+            <span className="font-mono text-sm opacity-60">+</span>
+          </div>
+        )}
         <motion.header
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -35,7 +52,8 @@ export function Section({
           className="mb-12 md:mb-16 max-w-3xl"
         >
           {(index || eyebrow) && (
-            <div className="kbd flex items-center gap-3">
+            <div className="kbd flex items-center gap-2.5">
+              <span className="live-dot block h-1.5 w-1.5 rounded-full bg-[rgb(var(--rgb-brand-primary))]" />
               {index && <span className="text-[rgb(var(--rgb-brand-primary))]">{index}</span>}
               {eyebrow && <span>{eyebrow}</span>}
             </div>

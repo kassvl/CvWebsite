@@ -117,13 +117,30 @@ export const projects: Project[] = [
     summary:
       'Incident responder for the Istio service mesh, written in Go. It watches Prometheus telemetry, matches a reviewed failure catalog and answers with a pull request that carries the evidence and a rollback plan.',
     highlights: [
-      '16 of 18 detections proven by injecting the real fault on a live cluster',
+      '16 of 18 detections proven by injecting the real fault on a live cluster; the other two ship declared unprovable',
       'Read-only on the cluster: every fix arrives as a pull request that a human reviews',
-      'Scored on mesh-incidents-bench, a public set of reproducible failure scenarios I built for it',
+      'Scored on Git-Hospital boards, a public benchmark of reproducible failures I built for it',
     ],
     stack: ['Go', 'Prometheus', 'Istio Ambient', 'Argo CD', 'kind'],
     language: 'Go',
-    repo: 'https://github.com/kassvl/meshmedic',
+    repo: 'https://github.com/Git-Hospital/meshmedic',
+    stars: 1,
+    featured: true,
+  },
+  {
+    slug: 'git-hospital',
+    title: 'Git-Hospital',
+    category: 'Open source',
+    summary:
+      'A GitHub org I founded for health checks across the stack: four public tools that measure code, Helm charts and service meshes, and report a number only when they can back it.',
+    highlights: [
+      'GitHealthCheck v0.2.0 in Go: cognitive-complexity and truck-factor metrics match gocognit and the Avelino et al. reference tool',
+      'MeshMedic and the boards benchmark score mesh tooling against known defects with hand-verified ground truth',
+      'Co-develop Helmbulance: behavioural tests for Helm charts, covering upgrades, reinstalls and network isolation',
+    ],
+    stack: ['Go', 'Kubernetes', 'Istio', 'Helm', 'GitHub Actions'],
+    language: 'Go',
+    repo: 'https://github.com/Git-Hospital',
     stars: 1,
     featured: true,
   },

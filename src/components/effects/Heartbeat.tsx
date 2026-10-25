@@ -10,8 +10,12 @@
 type HeartbeatProps = {
   /** Height of the strip in px. Width always fills the parent. */
   height?: number
+  /** How many heartbeats across the strip. More = denser line (good for wide dividers). */
+  beats?: number
   className?: string
 }
+
+const BEAT_WIDTH = 160
 
 // One heartbeat (160px wide), baseline y = 24: flat, P wave, QRS spike, T wave, flat tail.
 function beatAt(x: number): string {
@@ -24,23 +28,22 @@ function beatAt(x: number): string {
   )
 }
 
-// Three beats across the 480-wide box.
-const FULL = ['M0 24', beatAt(0), beatAt(160), beatAt(320)].join(' ')
-
-export function Heartbeat({ height = 48, className = '' }: HeartbeatProps) {
+export function Heartbeat({ height = 48, beats = 3, className = '' }: HeartbeatProps) {
+  const width = beats * BEAT_WIDTH
+  const d = ['M0 24', ...Array.from({ length: beats }, (_, i) => beatAt(i * BEAT_WIDTH))].join(' ')
   return (
     <svg
       aria-hidden="true"
       className={className}
       width="100%"
       height={height}
-      viewBox="0 0 480 48"
+      viewBox={`0 0 ${width} 48`}
       fill="none"
       preserveAspectRatio="none"
     >
       {/* dim baseline trace */}
       <path
-        d={FULL}
+        d={d}
         stroke="rgb(var(--rgb-brand-primary) / 0.28)"
         strokeWidth={1.75}
         strokeLinecap="round"
@@ -50,7 +53,7 @@ export function Heartbeat({ height = 48, className = '' }: HeartbeatProps) {
       {/* bright segment that sweeps across like a monitor scan */}
       <path
         className="ekg-sweep"
-        d={FULL}
+        d={d}
         pathLength={100}
         stroke="rgb(var(--rgb-brand-primary))"
         strokeWidth={2}
