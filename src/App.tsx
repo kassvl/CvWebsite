@@ -2,6 +2,7 @@ import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
 import { LenisProvider } from './components/effects/LenisProvider'
 import { GridBackground } from './components/effects/GridBackground'
+import { MonitorBackground } from './components/effects/MonitorBackground'
 import { Hero } from './components/sections/Hero'
 import { About } from './components/sections/About'
 import { TechStack } from './components/sections/TechStack'
@@ -15,6 +16,7 @@ function App() {
     <>
       <LenisProvider />
       <GridBackground />
+      <MonitorBackground />
       <Navbar />
       <main className="relative">
         <Hero />

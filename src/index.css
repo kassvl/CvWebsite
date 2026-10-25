@@ -103,14 +103,30 @@ body::after {
 }
 
 /* Subtle global grid background */
+/* ECG graph paper: faint red minor squares with a stronger line every fifth, the way a real
+   rhythm strip is printed. */
 .bg-grid {
   background-image:
-    linear-gradient(rgb(var(--rgb-border) / 0.8) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--rgb-border) / 0.8) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgb(var(--rgb-vital) / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--rgb-vital) / 0.05) 1px, transparent 1px),
+    linear-gradient(rgb(var(--rgb-vital) / 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--rgb-vital) / 0.11) 1px, transparent 1px);
+  background-size: 11px 11px, 11px 11px, 55px 55px, 55px 55px;
   background-position: -1px -1px;
-  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 120% 92% at 50% 28%, black 45%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 120% 92% at 50% 28%, black 45%, transparent 92%);
+}
+
+/* Scrolling bedside-monitor traces (MonitorBackground). Duration is set per lane inline. */
+.monitor-lane {
+  animation-name: monitor-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+@keyframes monitor-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* Hero radial glow */
@@ -187,6 +203,8 @@ body::after {
   .live-dot::after { animation: none; }
   /* Drop the sweep entirely so it doesn't freeze mid-dash; the dim full trace stays visible. */
   .ekg-sweep { display: none; }
+  /* Freeze the monitor traces in place rather than leaving them mid-scroll. */
+  .monitor-lane { animation: none; }
   html { scroll-behavior: auto; }
 }
 
