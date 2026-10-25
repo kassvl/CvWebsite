@@ -15,7 +15,12 @@ const EMBED_WIDTH = 1280
  */
 export function Projects() {
   const chapters = projects.filter((p) => p.embed)
-  const rest = projects.filter((p) => !p.embed)
+  // Open source (Git-Hospital, MeshMedic) leads the grid; team products follow.
+  const nonEmbed = projects.filter((p) => !p.embed)
+  const rest = [
+    ...nonEmbed.filter((p) => p.category === 'Open source'),
+    ...nonEmbed.filter((p) => p.category !== 'Open source'),
+  ]
   return (
     <section id="projects" className="relative scroll-mt-24 py-24 md:py-32">
       <Container>
@@ -105,7 +110,7 @@ function Chapter({ project, index, flip }: { project: Project; index: number; fl
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-4 py-2 text-sm font-semibold text-[rgb(var(--rgb-ink-50))] transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-4 py-2 text-sm font-semibold text-[rgb(var(--rgb-on-brand))] transition-transform hover:-translate-y-0.5"
                 >
                   <IconArrowUpRight size={15} /> Open the site
                 </a>
@@ -205,7 +210,7 @@ function LiveEmbed({ project }: { project: Project }) {
             )}
             <span className="absolute inset-0 bg-[rgb(var(--rgb-bg)/0.45)] transition-colors group-hover:bg-[rgb(var(--rgb-bg)/0.3)]" />
             <span className="absolute inset-0 flex items-center justify-center">
-              <span className="inline-flex items-center gap-2 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-5 py-2.5 text-sm font-semibold text-[rgb(var(--rgb-ink-50))] shadow-lg transition-transform group-hover:-translate-y-0.5">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-5 py-2.5 text-sm font-semibold text-[rgb(var(--rgb-on-brand))] shadow-lg transition-transform group-hover:-translate-y-0.5">
                 Try it live
               </span>
             </span>

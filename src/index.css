@@ -13,42 +13,47 @@
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --color-bg: rgb(12 10 9);
-  --color-surface: rgb(23 19 16);
-  --color-surface-2: rgb(32 26 22);
-  --color-border: rgb(58 47 40);
+  --color-bg: rgb(246 249 252);
+  --color-surface: rgb(255 255 255);
+  --color-surface-2: rgb(237 243 248);
+  --color-border: rgb(214 224 233);
 
-  --color-ink-50: rgb(244 236 226);
-  --color-ink-200: rgb(209 195 180);
-  --color-ink-400: rgb(150 135 121);
-  --color-ink-600: rgb(105 92 81);
+  --color-ink-50: rgb(15 28 42);
+  --color-ink-200: rgb(45 61 78);
+  --color-ink-400: rgb(94 112 130);
+  --color-ink-600: rgb(140 157 173);
 
-  --color-brand-primary: rgb(199 51 30);
-  --color-brand-accent: rgb(217 164 65);
-  --color-brand-warn: rgb(217 164 65);
-  --color-brand-danger: rgb(199 51 30);
+  --color-brand-primary: rgb(20 110 190);
+  --color-brand-accent: rgb(22 160 100);
+  --color-brand-warn: rgb(214 150 40);
+  --color-brand-danger: rgb(220 56 62);
+  --color-vital: rgb(220 56 62);
+  --color-on-brand: rgb(255 255 255);
 
   --shadow-glow:
-    0 0 0 1px rgb(199 51 30 / 0.22),
-    0 28px 90px -30px rgb(199 51 30 / 0.45);
+    0 0 0 1px rgb(20 110 190 / 0.16),
+    0 24px 60px -28px rgb(20 110 190 / 0.28);
 
   --radius-card: 1rem;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* RGB triplets used for opacity-aware tokens */
-  --rgb-bg: 12 10 9;
-  --rgb-surface: 23 19 16;
-  --rgb-surface-2: 32 26 22;
-  --rgb-border: 58 47 40;
-  --rgb-ink-50: 244 236 226;
-  --rgb-ink-200: 209 195 180;
-  --rgb-ink-400: 150 135 121;
-  --rgb-ink-600: 105 92 81;
-  --rgb-brand-primary: 199 51 30;
-  --rgb-brand-accent: 217 164 65;
+  /* RGB triplets used for opacity-aware tokens. Light "clinical dashboard" palette:
+     clinical blue (interactive), vital green (healthy), vital red (ECG). */
+  --rgb-bg: 246 249 252;
+  --rgb-surface: 255 255 255;
+  --rgb-surface-2: 237 243 248;
+  --rgb-border: 214 224 233;
+  --rgb-ink-50: 15 28 42;
+  --rgb-ink-200: 45 61 78;
+  --rgb-ink-400: 94 112 130;
+  --rgb-ink-600: 140 157 173;
+  --rgb-brand-primary: 20 110 190;
+  --rgb-brand-accent: 22 160 100;
+  --rgb-vital: 220 56 62;
+  --rgb-on-brand: 255 255 255;
 }
 
 * { border-color: rgb(var(--rgb-border) / 1); }
@@ -80,7 +85,7 @@ body::after {
   inset: -50%;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   /* Static: animating a full-viewport layer competed with the hero canvas for frame time. */
 }
@@ -100,8 +105,8 @@ body::after {
 /* Subtle global grid background */
 .bg-grid {
   background-image:
-    linear-gradient(rgb(var(--rgb-border) / 0.45) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--rgb-border) / 0.45) 1px, transparent 1px);
+    linear-gradient(rgb(var(--rgb-border) / 0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--rgb-border) / 0.8) 1px, transparent 1px);
   background-size: 48px 48px;
   background-position: -1px -1px;
   mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 30%, transparent 75%);

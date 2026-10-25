@@ -44,7 +44,7 @@ export function Heartbeat({ height = 48, beats = 3, className = '' }: HeartbeatP
       {/* dim baseline trace */}
       <path
         d={d}
-        stroke="rgb(var(--rgb-brand-primary) / 0.28)"
+        stroke="rgb(var(--rgb-vital) / 0.30)"
         strokeWidth={1.75}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -55,7 +55,7 @@ export function Heartbeat({ height = 48, beats = 3, className = '' }: HeartbeatP
         className="ekg-sweep"
         d={d}
         pathLength={100}
-        stroke="rgb(var(--rgb-brand-primary))"
+        stroke="rgb(var(--rgb-vital))"
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"

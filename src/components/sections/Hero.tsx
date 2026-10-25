@@ -96,7 +96,7 @@ export function Hero() {
             >
               <a
                 href="#projects"
-                className="group inline-flex items-center gap-2 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-5 py-2.5 text-sm font-semibold text-[rgb(var(--rgb-ink-50))] transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-5 py-2.5 text-sm font-semibold text-[rgb(var(--rgb-on-brand))] transition-transform hover:-translate-y-0.5"
               >
                 See the work
                 <IconArrowUpRight

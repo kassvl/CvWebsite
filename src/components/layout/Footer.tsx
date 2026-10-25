@@ -9,7 +9,7 @@ export function Footer() {
         {/* flatlining-into-calm EKG strip to close the page */}
         <div
           aria-hidden
-          className="mb-8 flex items-center gap-3 text-[rgb(var(--rgb-brand-primary))]"
+          className="mb-8 flex items-center gap-3 text-[rgb(var(--rgb-vital))]"
         >
           <span className="font-mono text-xs opacity-50">+</span>
           <div className="flex-1">

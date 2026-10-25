@@ -11,13 +11,39 @@ export interface ExperienceItem {
 // Mirrors ~/cv/cv-data.yml. Change facts there first, then here.
 export const experience: ExperienceItem[] = [
   {
+    company: 'Bluesense',
+    role: 'Software Engineering Intern',
+    start: 'Sep 2026',
+    end: 'Present',
+    location: 'Boston, USA · remote',
+    bullets: [
+      'Audited the Smart Beauty iOS app (Swift, SwiftUI) and fixed the session, checkout and cart bugs it surfaced.',
+      'Removed invented data from the app: skin-scan results show only real values, placeholder modules are gone.',
+      "Automated the team's GitHub workflow for about 30 people: issue forms, triage, PR checks, daily reports.",
+    ],
+    tags: ['Swift', 'SwiftUI', 'iOS', 'GitHub Actions'],
+  },
+  {
+    company: 'BirthdayMessaging',
+    role: 'Cybersecurity Intern',
+    start: 'Sep 2026',
+    end: 'Present',
+    location: 'United Kingdom · remote',
+    bullets: [
+      'Run weekly security scans of a production messaging platform with OWASP ZAP, Burp Suite and nmap.',
+      'Evaluated four EDR products against a real server intrusion; proposed open-source Wazuh as the start.',
+      "Found in code review that a waitlist's Firestore rules exposed every signup email; reported it as High.",
+    ],
+    tags: ['OWASP ZAP', 'Burp Suite', 'nmap', 'Wazuh'],
+  },
+  {
     company: 'Freelance',
     role: 'Web Developer',
     start: 'Apr 2026',
-    end: 'Present',
+    end: 'Sep 2026',
     location: 'Wrocław, Poland',
     bullets: [
-      'Build websites for small businesses end to end: requirements, design, build, deployment, domain and TLS.',
+      'Built websites for small businesses end to end: requirements, design, build, deployment, domain and TLS.',
       'loomr.net for a textile design studio: Next.js, video-driven room navigation, custom design system.',
       'braidss.xyz for a hair salon: booking requests with an admin desk, Next.js and Postgres on Vercel.',
     ],

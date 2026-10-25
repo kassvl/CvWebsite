@@ -111,23 +111,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: 'meshmedic',
-    title: 'MeshMedic',
-    category: 'Open source',
-    summary:
-      'Incident responder for the Istio service mesh, written in Go. It watches Prometheus telemetry, matches a reviewed failure catalog and answers with a pull request that carries the evidence and a rollback plan.',
-    highlights: [
-      '16 of 18 detections proven by injecting the real fault on a live cluster; the other two ship declared unprovable',
-      'Read-only on the cluster: every fix arrives as a pull request that a human reviews',
-      'Scored on Git-Hospital boards, a public benchmark of reproducible failures I built for it',
-    ],
-    stack: ['Go', 'Prometheus', 'Istio Ambient', 'Argo CD', 'kind'],
-    language: 'Go',
-    repo: 'https://github.com/Git-Hospital/meshmedic',
-    stars: 1,
-    featured: true,
-  },
-  {
     slug: 'git-hospital',
     title: 'Git-Hospital',
     category: 'Open source',
@@ -145,38 +128,20 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: 'biometric-payment-infrastructure',
-    title: 'Biometric Payment Infrastructure',
-    category: 'Cloud / Infra',
+    slug: 'meshmedic',
+    title: 'MeshMedic',
+    category: 'Open source',
     summary:
-      'Two-region AWS reference architecture for a payment platform, written in Terraform, with security scanners gating every change.',
+      'Incident responder for the Istio service mesh, written in Go. It watches Prometheus telemetry, matches a reviewed failure catalog and answers with a pull request that carries the evidence and a rollback plan.',
     highlights: [
-      'VPC, EKS, WAF, IRSA and Istio mTLS policies across two AWS regions',
-      'Checkov, tfsec and Trivy gate every pull request in CI',
-      'Controls mapped to PCI-DSS v4.0 and GDPR',
+      '16 of 18 detections proven by injecting the real fault on a live cluster; the other two ship declared unprovable',
+      'Read-only on the cluster: every fix arrives as a pull request that a human reviews',
+      'Scored on Git-Hospital boards, a public benchmark of reproducible failures I built for it',
     ],
-    stack: ['Terraform', 'AWS', 'EKS', 'Istio', 'GitHub Actions'],
-    language: 'HCL',
-    repo: 'https://github.com/kassvl/biometric-payment-infrastructure',
-    stars: 2,
-    screenshot:
-      'https://raw.githubusercontent.com/kassvl/biometric-payment-infrastructure/main/docs/screenshots/grafana-cluster-dashboard.png',
-    featured: true,
-  },
-  {
-    slug: 'istio-ambient-aiops-thesis',
-    title: 'Engineering thesis: Istio Ambient vs sidecar',
-    category: 'Cloud / Infra',
-    summary:
-      'Compares the sidecar-less Istio Ambient mesh with the classic sidecar pattern on resource cost and reliability, with a closed-loop controller that heals injected faults.',
-    highlights: [
-      'Measures the memory, CPU and p99 latency cost of sidecars under identical load',
-      'Ambient and sidecar compared on the same workloads and SLOs',
-    ],
-    stack: ['Kubernetes', 'Istio Ambient', 'Python', 'Prometheus', 'Chaos Mesh'],
-    language: 'Python',
-    repo: 'https://github.com/kassvl/istio-ambient-aiops-thesis',
-    stars: 0,
+    stack: ['Go', 'Prometheus', 'Istio Ambient', 'Argo CD', 'kind'],
+    language: 'Go',
+    repo: 'https://github.com/Git-Hospital/meshmedic',
+    stars: 1,
     featured: true,
   },
 ]

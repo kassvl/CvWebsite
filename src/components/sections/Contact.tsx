@@ -124,7 +124,7 @@ export function Contact() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-5 py-2.5 text-sm font-semibold text-[rgb(var(--rgb-bg))] transition-transform hover:-translate-y-0.5 disabled:opacity-70"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[rgb(var(--rgb-brand-primary))] px-5 py-2.5 text-sm font-semibold text-[rgb(var(--rgb-on-brand))] transition-transform hover:-translate-y-0.5 disabled:opacity-70"
           >
             {status === 'submitting' ? (
               <>

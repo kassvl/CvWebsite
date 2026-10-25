@@ -35,7 +35,7 @@ export function Section({
           /* EKG divider: a faint monitor line between sections, flanked by medical crosses */
           <div
             aria-hidden
-            className="mb-16 flex items-center gap-3 text-[rgb(var(--rgb-brand-primary))] md:mb-20"
+            className="mb-16 flex items-center gap-3 text-[rgb(var(--rgb-vital))] md:mb-20"
           >
             <span className="font-mono text-sm opacity-60">+</span>
             <div className="flex-1">
