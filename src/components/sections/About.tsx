@@ -33,7 +33,7 @@ export function About() {
         />
         <Card
           title="What I'm looking for"
-          body="A full-stack internship or working-student role in Wrocław or remote in the EU, starting now, where I ship features to real users and learn from a senior team."
+          body="A working-student or junior full-stack role in Wrocław or remote in the EU, starting now, where I ship features to real users and learn from a senior team."
         />
         <Card
           title="Outside the terminal"

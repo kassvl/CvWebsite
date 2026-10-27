@@ -53,7 +53,7 @@ export function Contact() {
           <span className="text-[rgb(var(--rgb-brand-primary))]">together</span>.
         </>
       }
-      description="Full-stack internships, working-student roles and freelance projects. Drop a message or grab a channel below."
+      description="Working-student and junior full-stack roles, plus freelance projects. Drop a message or grab a channel below."
     >
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-3">

@@ -7,7 +7,7 @@ export const profile = {
     'I build web apps end to end: React and Next.js front ends, APIs in Python and TypeScript, PostgreSQL, and the Docker, CI and AWS setup that ships them. Paying clients in production since April 2026.',
   location: 'Wrocław, Poland',
   region: 'EU · UTC+1',
-  status: 'Open to work: full-stack internship or working student',
+  status: 'Open to work: working student or junior full-stack',
   email: 'kadirhanemre@proton.me',
   // Phone stays out of the public site on purpose (scrapers, spam); it is on the CV only.
   github: 'https://github.com/kassvl',
